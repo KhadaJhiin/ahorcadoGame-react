@@ -1,33 +1,52 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
+import { validarSubmit, validarChange } from "./ValidarEntrada";
 
 const EnvioDeLetra = () => {
+  /*
+  ---------------------------------
+  ----------USE STATE--------------
+  ---------------------------------
+  */
   const [form, setForm] = useState({
-    entrada: "a",
+    entrada: "",
   });
-
+  const { entrada } = form;
+  /*
+  ------------------------------------
+  ----------HANDLESUBMIT--------------
+  ------------------------------------
+  */
   const handleSubmit = (e) => {
     e.preventDefault();
+    validarSubmit(entrada);
   };
-
+  /*
+  ---------------------------------
+  ----------HANDLE CHANGE--------------
+  ---------------------------------
+  */
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: value,
+    });
+    validarChange(value, setForm, form);
+  };
+  /*
+  ----------------------------------------
+  ----------RETURN DE LA APP--------------
+  ----------------------------------------
+  */
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Ingrese una letra"
-          name="entrada"
-          value={form.entrada}
-          onChange={(e) => setForm({ ...form, entrada: e.target.value })}
-        />
-
-        <button type="submit">Enviar letra</button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <input type="text" placeholder="Ingrese una letra" name="entrada" value={entrada} onChange={handleChange} />
+      <button type="submit">Enviar letra</button>
+    </form>
   );
 };
 export default EnvioDeLetra;
-
-//quedamos en video 66 reutilizar onchange
 
 /*FORMULARIO CONTROLADO LO QUE ES MAS RECOMENDADO POR REACT/
 
@@ -46,8 +65,25 @@ para esto necesitamos
   })
 
 2. Para actualizar el evento o para que realize los cambios es necesario de igual manera hay que usar dentro de nuestro
-   campo un evento llamado onchange, aqui al poner esos puntos llamados split operation antes de tomar el valor de entrada, son para crear una copia
+   campo un evento llamado onchange, aqui al poner esos puntos llamados SPREAD operation antes de tomar el valor de entrada, son para crear una copia
    de lo que ya esta hecho o de las entradas existentes,
+
+3. Optimizacion del onchange, esto se usa mas que todo cuando tenemos muchas entradas es decir mas
+   de un input. 
+   Para esto creamos otra funcion llamada handle change ya sabemos que es por la convencion este nombre
+   de estea manera se tenia el onchange en cada entrada de nuestro formulario
+
+   onChange={(e) => setForm({ ...form, entrada: e.target.value })}
+
+   ahora queremos dejarlo en una funcion, por lo que hacemos el handleChange y dentro llamamos
+   primero el e.target.value y despues el name para poder identificar en que entrada se encuentra
+
+   Dentro de esta misma funcion nosotros podemos hacer el setForm es decir la actualizacion del
+   formulario.
+
+   Para esto tenemos que pasarle la copia de lo que tenemos ya que el va a detectar que cambie el
+   estado de nuestra entrada esto lo hacemos con el spread funcion
+
 
 
 
@@ -133,3 +169,11 @@ para esto necesitamos
 //                          nombre de un input que es "entrada" incluso lo podemos desestructurar para hacer una
 //                          manipulacion mas facil de los datos. 
 // */
+
+/*PREGUNTAS REACT
+1. Que cosas se deben modularizar y cuales no ¿Debemos modularizar las funciones?
+2. Cuando usar formularios controlados y no controlados
+
+*/
+
+
