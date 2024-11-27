@@ -1,7 +1,7 @@
 //Importacion de componentes y demas
 import { useState } from "react";
-import Header from "./components/body/Header";
-import Escenario from "./components/body/Escenario";
+import Header from "./components/pages/Header";
+import Escenario from "./components/pages/Escenario";
 import ListaLetras from "./components/manejoPalabra/ListaLetras";
 import EnvioDeLetra from "./components/manejoPalabra/EnvioDeLetra";
 import ObtenerDificultad from "./components/palabraSecreta/ObtenerDificultad";
