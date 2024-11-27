@@ -2,7 +2,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { validarSubmit, validarChange } from "./ValidarEntrada";
 
-const EnvioDeLetra = () => {
+const EnvioDeLetra = ({ponerLetra}) => {
   /*
   ---------------------------------
   ----------USE STATE--------------
@@ -20,6 +20,7 @@ const EnvioDeLetra = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     validarSubmit(entrada);
+    ponerLetra(entrada);
   };
   /*
   ---------------------------------

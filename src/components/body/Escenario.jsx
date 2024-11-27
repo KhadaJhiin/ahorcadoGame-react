@@ -1,4 +1,4 @@
-import horca from "../assets/horca.png";
+import horca from "../../assets/horca.png";
 
 const Escenario = () => {
     return(
