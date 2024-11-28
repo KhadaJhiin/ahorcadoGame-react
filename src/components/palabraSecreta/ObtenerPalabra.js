@@ -13,4 +13,6 @@ const ObtenerPalabra = () => {
   const palabraNormalizada = normalizarPalabra(listaPalabra[indice]);
   return palabraNormalizada;
 };
+
 export default ObtenerPalabra;
+

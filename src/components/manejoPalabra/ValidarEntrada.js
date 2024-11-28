@@ -1,6 +1,5 @@
 import Swal from "sweetalert2";
-//------------------------------------------------------------
-// Función de validación para el submit-----------------------
+
 export const validarSubmit = (entrada) => {
   if (!entrada.trim()) {
     return Swal.fire({
@@ -10,8 +9,8 @@ export const validarSubmit = (entrada) => {
     });
   }
 };
-//-------------------------------------------------------------
-// Función de validación para el cambio de input---------------
+
+
 export const validarChange = (value, setForm, form) => {
   if (value.length > 1 || !/^[a-zA-Z\s]*$/.test(value)) {
     return Swal.fire({
@@ -19,7 +18,6 @@ export const validarChange = (value, setForm, form) => {
       title: "Oops...",
       text: "No números ni más de una letra",
     }).then(() => {
-      // Restablecer el input a ningún valor
       setForm({
         ...form,
         entrada: "",

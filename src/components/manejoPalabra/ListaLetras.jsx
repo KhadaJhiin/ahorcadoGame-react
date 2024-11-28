@@ -1,9 +1,17 @@
-const ListaLetras = ({ palabra }) => {
+const ListaLetras = ({ palabra, letraEntrada }) => {
+  const listaPalabra = palabra.split("");
   return (
     <ul>
-      {palabra.split("").map((letra, index) => (
-        <li key={index}>{letra}</li>
-      ))}
+      {listaPalabra.map((letra, index) =>
+        letra === letraEntrada ? (
+          <li key={index}>{letra}</li>
+        ) : (
+          <li key={index}></li>
+        )
+
+        // Tenemos que crear un estado para usar la spread operation para guardar las letras acertadas y aumentar las nuevas en
+        // cada intento.
+      )}
     </ul>
   );
 };

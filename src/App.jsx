@@ -1,10 +1,9 @@
 //Importacion de componentes y demas
 import { useState } from "react";
 import Header from "./components/pages/Header";
-import Escenario from "./components/pages/Escenario";
 import ListaLetras from "./components/manejoPalabra/ListaLetras";
-import EnvioDeLetra from "./components/manejoPalabra/EnvioDeLetra";
-import ObtenerDificultad from "./components/palabraSecreta/ObtenerDificultad";
+import Form from "./components/manejoPalabra/Form";
+import { ObtenerDificultad } from "./components/palabraSecreta/ObtenerDificultad";
 import ObtenerPalabra from "./components/palabraSecreta/ObtenerPalabra";
 
 //Declaracion funciones o variables
@@ -14,19 +13,19 @@ const dificultad = ObtenerDificultad(palabra);
 //Renderizado de la APP
 const App = () => {
   const [letra, sentLetra] = useState("");
-  const ponerLetra = (entrada) => {
+
+  const valorLetra = (entrada) => {
     sentLetra(entrada);
   };
 
   return (
     <>
       <Header />
-      <Escenario />
-      <ListaLetras palabra={palabra} />
+      <ListaLetras palabra={palabra} letraEntrada={letra}/>
+      <p>Dificultad : {dificultad}</p>
+      <Form valorLetra={valorLetra} />
+      <h1>{letra}</h1>
       <h1>{palabra}</h1>
-      <h2>{dificultad}</h2>
-      <EnvioDeLetra ponerLetra={ponerLetra} />
-      <p>Letra entrada: {letra}</p>
     </>
   );
 };
