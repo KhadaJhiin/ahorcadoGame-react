@@ -25,7 +25,6 @@ const App = () => {
       <p>Dificultad : {dificultad}</p>
       <Form valorLetra={valorLetra} />
       <h1>{letra}</h1>
-      <h1>{palabra}</h1>
     </>
   );
 };
