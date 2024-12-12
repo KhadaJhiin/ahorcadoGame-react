@@ -1,0 +1,76 @@
+:root{
+  --color-principal:rgb(0, 255, 191);
+  --color-letras:rgb(247, 56, 145);
+  --color-fondo:#021526;
+}
+
+*{
+  background-color:var(--color-fondo);
+}
+h1{
+  text-align: center;
+  margin: 9% 0 10% 0;
+  font-family: "Playwrite FR Trad", cursive;
+  font-weight: 700;
+  color: var(--color-principal);
+}
+
+.listaLetras{
+  list-style-type: none;
+  display: flex;
+  color: var(--color-principal);
+  justify-content: center
+}
+.elementoLista{
+  margin-right: 50px;
+  width: 40px;
+  border-bottom: 2px solid var(--color-principal);
+  justify-content: center;
+  text-align: center;
+  color: var(--color-principal);
+  font-size: 25px;
+}
+.dificultad{
+  display: flex;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-principal);
+  justify-content: center;
+  margin-top: 5%;
+}
+.formulario{
+  display: flex;
+  justify-content: center;
+}
+.inputForm{
+  color: var(--color-principal);
+  border: 2px solid var(--color-principal);
+}
+.inputForm:focus{
+  background-color:var(--color-fondo);
+  outline: none;
+}
+.intentos{
+  color: var(--color-principal);
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+/*ALERTA*/
+.alerta{
+  margin: auto;
+  display: flex;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+  border: dotted var(--color-principal);
+  flex-direction: column;
+  color: var(--color-principal);
+  padding: 10px;
+  justify-content: space-around;
+}
+.alerta button{
+  color: var(--color-fondo);
+  font-weight: bold;
+  background-color: var(--color-principal);
+}

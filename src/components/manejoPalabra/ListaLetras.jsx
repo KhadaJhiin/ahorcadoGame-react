@@ -1,28 +1,39 @@
 import { useState, useEffect } from "react";
 
-const ListaLetras = ({ palabra, letraEntrada }) => {
+
+const ListaLetras = ({ palabra, letraEntrada, intentosF }) => {
   const [array, setArray] = useState([]);
-
-  const listaPalabra = palabra.split("");
-
-  useEffect(() => {
-    const indices = (lista, letra) => {
-      lista.forEach((element, index) => {
-        if(element === letra){
-          setArray(prevArray => [...prevArray,index]);
-        }
-      });
-    };
-    indices(listaPalabra,letraEntrada);
-  }, [letraEntrada])
   
+  const listaPalabra = palabra.split("");
+  
+  const indices = (lista, letra) => {
+    let found = false;
+    lista.forEach((element, index) => {
+      if (element === letra) {
+        setArray((prevArray) => [...prevArray, index]);
+        found = true;
+      }
+    });
+    return found;
+  };
+  
+  useEffect(() => {
+
+    if(indices(listaPalabra,letraEntrada)){
+      return;
+    }else{
+      intentosF();
+    }
+
+  }, [letraEntrada]);
+
   return (
-    <ul>
+    <ul className="listaLetras">
       {listaPalabra.map((letra, index) =>
         array.includes(index) ? (
-          <li key={index}>{letra}</li>
+          <li className="elementoLista" key={index}>{letra}</li>
         ) : (
-          <li key={index}></li>
+          <li className="elementoLista" key={index}></li>
         )
       )}
     </ul>

@@ -8,4 +8,12 @@ export const ObtenerDificultad = (text) => {
   }
 };
 
-
+export const obtenerIntentos = (dificultad) => {
+  if(dificultad === 'Dificil'){
+    return 15;
+  }else if (dificultad === 'Medio') {
+    return 10;
+  }else{
+    return 5;
+  }
+}

@@ -1,6 +1,6 @@
 const Header = () => {
     return(
-        <h1 className="m-3">Hagman game</h1>
+        <h1>Hangman game</h1>
     )
 }
 export default Header;

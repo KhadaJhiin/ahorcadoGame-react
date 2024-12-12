@@ -31,15 +31,16 @@ const Form = ({ valorLetra }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="formulario" onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Ingrese una letra"
         name="entrada"
         value={entrada}
         onChange={handleChange}
+        className="inputForm"
       />
-      <button type="submit">Enviar letra</button>
+      <button className="inputForm" type="submit">Enviar letra</button>
     </form>
   );
 };
