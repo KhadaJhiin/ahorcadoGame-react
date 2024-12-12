@@ -5,7 +5,7 @@ export const validarSubmit = (entrada) => {
     return Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Obligatorio el envío de una sola letra",
+      text: "Something went wrongg!",
     });
   }
 };
