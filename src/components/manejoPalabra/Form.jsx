@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Swal from "sweetalert2";
-import { validarSubmit, validarChange } from "./ValidarEntrada";
+import Alerta from "../alertas/Alerta";
 
 const Form = ({ valorLetra }) => {
   const [form, setForm] = useState({
@@ -8,17 +7,21 @@ const Form = ({ valorLetra }) => {
   });
   const { entrada } = form;
 
+  const [alerta, setAlerta] = useState({ mensaje: "", tipo: "" });
+  // const { mensaje, tipo } = alerta;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validarSubmit(entrada)) {
-      return
+    if (!entrada.trim()) {
+      setAlerta({ tipo: "Error", mensaje: "Escribir una letra" });
+      return;
     }
     valorLetra(entrada);
     setForm({
       ...form,
       entrada: "",
     });
-
+    setAlerta({ tipo: "", mensaje: "" });
   };
 
   const handleChange = (e) => {
@@ -27,11 +30,25 @@ const Form = ({ valorLetra }) => {
       ...form,
       [name]: value,
     });
-    validarChange(value, setForm, form);
+
+    if (value.length > 1 || !/^[a-zA-Z\s]*$/.test(value)) {
+      setAlerta({ tipo: "Error", mensaje: "Solo una letra, no dos" });
+      return;
+    }
+  };
+  const cerrarAlerta = () => {
+    setAlerta({ tipo: "", mensaje: "" });
+    setForm({
+      ...form,
+      entrada: "",
+    });
   };
 
   return (
-    <form className="formulario" onSubmit={handleSubmit}>
+    <form
+      className="formulario"
+      onSubmit={handleSubmit}
+    >
       <input
         type="text"
         placeholder="Ingrese una letra"
@@ -40,7 +57,19 @@ const Form = ({ valorLetra }) => {
         onChange={handleChange}
         className="inputForm"
       />
-      <button className="inputForm" type="submit">Enviar letra</button>
+      <button
+        className="inputForm"
+        type="submit"
+      >
+        Enviar letra
+      </button>
+      {alerta.mensaje && (
+        <Alerta
+          tipo={alerta.tipo}
+          mensaje={alerta.mensaje}
+          cerrarAlerta={cerrarAlerta}
+        />
+      )}
     </form>
   );
 };
