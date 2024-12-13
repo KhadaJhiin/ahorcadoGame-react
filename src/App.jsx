@@ -1,9 +1,12 @@
 //Importacion de componentes y demas
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/pages/Header";
 import ListaLetras from "./components/manejoPalabra/ListaLetras";
 import Form from "./components/manejoPalabra/Form";
-import {ObtenerDificultad,obtenerIntentos} from "./components/palabraSecreta/ObtenerDificultad";
+import {
+  ObtenerDificultad,
+  obtenerIntentos,
+} from "./components/palabraSecreta/ObtenerDificultad";
 import ObtenerPalabra from "./components/palabraSecreta/ObtenerPalabra";
 import Intentos from "./components/manejoPalabra/Intentos";
 import Alerta from "./components/alertas/Alerta";
@@ -17,6 +20,7 @@ const intentos = obtenerIntentos(dificultad);
 const App = () => {
   const [letra, sentLetra] = useState("");
   const [intentosR, setIntentosR] = useState(intentos + 2);
+  const [alerta, setAlerta] = useState({ tipo: "", mensaje: "" });
 
   const valorLetra = (entrada) => {
     sentLetra(entrada);
@@ -24,9 +28,29 @@ const App = () => {
   const restarIntento = () => {
     setIntentosR((prevIntentos) => prevIntentos - 1);
   };
+  useEffect(() => {
+    const gameOver = () => {
+      if (intentosR < 1) {
+        setAlerta({ tipo: "Perdiste", mensaje: "Vuelve a intentarlo" });
+        return;
+      }
+    };
+    gameOver();
+  }, [intentosR])
+  
+  const cerrarAlerta = () => {
+    setAlerta({ tipo: "", mensaje: "" });
+  };
 
   return (
     <>
+      {alerta.mensaje && (
+        <Alerta
+          tipo={alerta.tipo}
+          mensaje={alerta.mensaje}
+          cerrarAlerta={cerrarAlerta}
+        />
+      )}
       <Header />
       <ListaLetras
         palabra={palabra}
