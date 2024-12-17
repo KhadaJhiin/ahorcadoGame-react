@@ -18,6 +18,7 @@ const intentos = obtenerIntentos(dificultad);
 
 //Renderizado de la APP
 const App = () => {
+  const [verAlertaW, setVerAlertaW] = useState(false);
   const [letra, sentLetra] = useState("");
   const [intentosR, setIntentosR] = useState(intentos + 2);
   const [alerta, setAlerta] = useState({ tipo: "", mensaje: "" });
@@ -32,6 +33,7 @@ const App = () => {
     const gameOver = () => {
       if (intentosR < 1) {
         setAlerta({ tipo: "Perdiste", mensaje: "Vuelve a intentarlo" });
+        setVerAlertaW(true);
         return;
       }
     };
@@ -40,6 +42,7 @@ const App = () => {
   
   const cerrarAlerta = () => {
     setAlerta({ tipo: "", mensaje: "" });
+    setVerAlertaW(false);
   };
 
   return (
@@ -58,7 +61,7 @@ const App = () => {
         intentosF={restarIntento}
       />
       <Intentos intentos={intentosR} />
-      <Form valorLetra={valorLetra} />
+      <Form valorLetra={valorLetra} verAlertaW={verAlertaW} />
       <p className="dificultad">Dificultad : {dificultad}</p>
     </>
   );

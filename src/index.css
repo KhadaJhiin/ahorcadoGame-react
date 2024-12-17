@@ -59,6 +59,7 @@ h1{
 /*ALERTA*/
 .alerta{
   position: fixed;
+  top:20px;
   margin: auto;
   display: flex;
   align-items: center;

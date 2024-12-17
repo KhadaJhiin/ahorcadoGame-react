@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
-
+import  Alerta from "../alertas/Alerta";
 
 const ListaLetras = ({ palabra, letraEntrada, intentosF }) => {
   const [array, setArray] = useState([]);
-  
+  const [alerta, setAlerta] = useState({ tipo: "", mensaje: "" });
+
   const listaPalabra = palabra.split("");
-  
+
+  const longitud = listaPalabra.length;
+
   const indices = (lista, letra) => {
     let found = false;
     lista.forEach((element, index) => {
@@ -16,27 +19,55 @@ const ListaLetras = ({ palabra, letraEntrada, intentosF }) => {
     });
     return found;
   };
-  
   useEffect(() => {
+    const victoria = () => {
+      if (longitud === array.length) {
+        setAlerta({ tipo: "Ganaste", mensaje: "Juega otra vez !" });
+        return;
+      }
+    };
+    victoria();
+  }, [array]);
 
-    if(indices(listaPalabra,letraEntrada)){
+  const cerrarAlerta = () => {
+    setAlerta({ tipo: "", mensaje: "" });
+  };
+
+  useEffect(() => {
+    if (indices(listaPalabra, letraEntrada)) {
       return;
-    }else{
+    } else {
       intentosF();
     }
-
   }, [letraEntrada]);
 
   return (
-    <ul className="listaLetras">
-      {listaPalabra.map((letra, index) =>
-        array.includes(index) ? (
-          <li className="elementoLista" key={index}>{letra}</li>
-        ) : (
-          <li className="elementoLista" key={index}></li>
-        )
+    <>
+      <ul className="listaLetras">
+        {listaPalabra.map((letra, index) =>
+          array.includes(index) ? (
+            <li
+              className="elementoLista"
+              key={index}
+            >
+              {letra}
+            </li>
+          ) : (
+            <li
+              className="elementoLista"
+              key={index}
+            ></li>
+          )
+        )}
+      </ul>
+      {alerta.mensaje && (
+        <Alerta
+          tipo={alerta.tipo}
+          mensaje={alerta.mensaje}
+          cerrarAlerta={cerrarAlerta}
+        />
       )}
-    </ul>
+    </>
   );
 };
 

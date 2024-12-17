@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Alerta from "../alertas/Alerta";
 
-const Form = ({ valorLetra }) => {
+const Form = ({ valorLetra, verAlertaW}) => {
+  const [verAlerta, setVerAlerta] = useState(false);
   const [form, setForm] = useState({
     entrada: "",
   });
@@ -14,6 +15,7 @@ const Form = ({ valorLetra }) => {
     e.preventDefault();
     if (!entrada.trim()) {
       setAlerta({ tipo: "Error", mensaje: "Escribir una letra" });
+      setVerAlerta(true);
       return;
     }
     valorLetra(entrada);
@@ -33,6 +35,7 @@ const Form = ({ valorLetra }) => {
 
     if (value.length > 1 || !/^[a-zA-Z\s]*$/.test(value)) {
       setAlerta({ tipo: "Error", mensaje: "Solo una letra, no dos" });
+      setVerAlerta(true);
       return;
     }
   };
@@ -42,6 +45,7 @@ const Form = ({ valorLetra }) => {
       ...form,
       entrada: "",
     });
+    setVerAlerta(false);
   };
 
   return (
@@ -56,6 +60,7 @@ const Form = ({ valorLetra }) => {
         value={entrada}
         onChange={handleChange}
         className="inputForm"
+        disabled={verAlerta}
       />
       <button
         className="inputForm"
